@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="中部釣りコンディション">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#effaf7" />
+      <stop offset="55%" stop-color="#d7efe8" />
+      <stop offset="100%" stop-color="#dce8f7" />
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#173042" />
+      <stop offset="100%" stop-color="#0f766e" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <circle cx="140" cy="106" r="160" fill="#8ee6db" opacity=".35" />
+  <circle cx="1040" cy="76" r="170" fill="#86b8ff" opacity=".22" />
+  <rect x="70" y="68" width="1060" height="494" rx="34" fill="#ffffff" opacity=".92" />
+  <rect x="108" y="105" width="390" height="420" rx="30" fill="url(#panel)" />
+  <text x="148" y="170" fill="#8ee6db" font-size="24" font-family="'Helvetica Neue', Arial, sans-serif" letter-spacing="4">FISHING CONDITIONS BOARD</text>
+  <text x="148" y="248" fill="#ffffff" font-size="64" font-family="'Hiragino Sans', 'Yu Gothic', sans-serif" font-weight="700">中部釣り</text>
+  <text x="148" y="322" fill="#ffffff" font-size="64" font-family="'Hiragino Sans', 'Yu Gothic', sans-serif" font-weight="700">コンディション</text>
+  <text x="148" y="390" fill="#d6f5f0" font-size="28" font-family="'Hiragino Sans', 'Yu Gothic', sans-serif">三重・愛知・静岡の主要釣り場を</text>
+  <text x="148" y="430" fill="#d6f5f0" font-size="28" font-family="'Hiragino Sans', 'Yu Gothic', sans-serif">波・風・潮位近似・月齢で比較</text>
+  <rect x="560" y="120" width="500" height="110" rx="24" fill="#edf6f4" />
+  <text x="598" y="168" fill="#5a7184" font-size="24" font-family="'Hiragino Sans', 'Yu Gothic', sans-serif">7日先まで / 日付指定24時間グラフ / 月齢・潮回り</text>
+  <text x="598" y="204" fill="#173042" font-size="34" font-family="'Hiragino Sans', 'Yu Gothic', sans-serif" font-weight="700">スマホでも見やすい釣り場ダッシュボード</text>
+  <rect x="560" y="266" width="500" height="220" rx="28" fill="#f8fbfa" stroke="#d7e6e1" />
+  <path d="M594 432c42-34 89-52 140-52 53 0 86 25 132 25 42 0 79-17 160-76" fill="none" stroke="#0f766e" stroke-width="8" stroke-linecap="round" />
+  <path d="M594 406c40-22 85-34 130-34 58 0 89 18 134 18 44 0 83-10 168-45" fill="none" stroke="#2563eb" stroke-width="8" stroke-linecap="round" />
+  <path d="M594 366c41-10 79-15 116-15 51 0 97 12 148 12 46 0 88-8 168-31" fill="none" stroke="#ea580c" stroke-width="8" stroke-linecap="round" />
+  <path d="M594 326c35-16 66-24 98-24 42 0 83 15 127 15 50 0 97-12 207-45" fill="none" stroke="#dc2626" stroke-width="8" stroke-linecap="round" />
+  <circle cx="704" cy="514" r="8" fill="#0f766e" />
+  <text x="724" y="521" fill="#173042" font-size="24" font-family="'Hiragino Sans', 'Yu Gothic', sans-serif">潮位近似</text>
+  <circle cx="848" cy="514" r="8" fill="#2563eb" />
+  <text x="868" y="521" fill="#173042" font-size="24" font-family="'Hiragino Sans', 'Yu Gothic', sans-serif">波高</text>
+  <circle cx="944" cy="514" r="8" fill="#ea580c" />
+  <text x="964" y="521" fill="#173042" font-size="24" font-family="'Hiragino Sans', 'Yu Gothic', sans-serif">風速</text>
+</svg>
