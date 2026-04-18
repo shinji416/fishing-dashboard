@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>釣り情報ダッシュボード</title>
+    <meta
+      name="description"
+      content="三重・愛知・静岡の主要釣り場について、潮位近似、波高、風速、気温を7日先まで確認できる釣り情報ダッシュボード。"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Roboto+Mono:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./fishing-dashboard.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js" defer></script>
+    <script src="./fishing-dashboard.js" defer></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">FISHING CONDITIONS BOARD</p>
+          <h1>釣り場コンディション</h1>
+          <p class="hero-copy">
+            三重・愛知・静岡の主要ポイントをまとめて確認できるローカルページです。日付を指定すると
+            7日先までの24時間グラフに切り替わり、潮位の近似、波、風、気温を見比べやすくしました。
+          </p>
+        </div>
+        <div class="hero-panel">
+          <div class="stamp">
+            <span>更新</span>
+            <strong id="lastUpdated">読み込み中…</strong>
+          </div>
+          <p class="hero-note">
+            潮位は Open-Meteo の海面高モデル値です。沿岸では誤差が出るため、釣行前は公式潮位表も併用してください。
+          </p>
+        </div>
+      </header>
+
+      <section class="toolbar">
+        <div class="filters" id="filters">
+          <button class="filter is-active" data-area="all">すべて</button>
+          <button class="filter" data-area="三重県">三重県</button>
+          <button class="filter" data-area="愛知県">愛知県</button>
+          <button class="filter" data-area="静岡県">静岡県</button>
+        </div>
+        <div class="toolbar-actions">
+          <label class="date-picker">
+            <span>表示日</span>
+            <input type="date" id="datePicker" />
+          </label>
+          <button class="refresh-button" id="refreshButton">最新データを再取得</button>
+        </div>
+      </section>
+
+      <section class="moon-strip">
+        <div class="moon-badge" id="selectedDateLabel">日付を読み込み中…</div>
+        <div class="moon-badge accent" id="moonInfo">月齢を計算中…</div>
+        <div class="moon-badge" id="rangeInfo">予報範囲を確認中…</div>
+      </section>
+
+      <section class="legend">
+        <span><i class="swatch tide"></i>潮位近似</span>
+        <span><i class="swatch wave"></i>波高</span>
+        <span><i class="swatch wind"></i>風速</span>
+        <span><i class="swatch temp"></i>気温</span>
+      </section>
+
+      <main class="spot-grid" id="spotGrid"></main>
+
+      <template id="spotTemplate">
+        <article class="spot-card">
+          <div class="card-head">
+            <div>
+              <p class="area"></p>
+              <h2 class="spot-name"></h2>
+              <p class="spot-meta"></p>
+            </div>
+            <div class="status-pill">読み込み中</div>
+          </div>
+
+          <div class="now-grid">
+            <div class="metric">
+              <span>潮位近似</span>
+              <strong data-field="tide">-</strong>
+            </div>
+            <div class="metric">
+              <span>波高</span>
+              <strong data-field="wave">-</strong>
+            </div>
+            <div class="metric">
+              <span>風速</span>
+              <strong data-field="wind">-</strong>
+            </div>
+            <div class="metric">
+              <span>気温</span>
+              <strong data-field="temp">-</strong>
+            </div>
+          </div>
+
+          <div class="summary-strip">
+            <span data-field="summary"></span>
+          </div>
+
+          <div class="chart-wrap">
+            <canvas></canvas>
+          </div>
+
+          <div class="links">
+            <a class="source-link weather-link" target="_blank" rel="noreferrer">予報ソース</a>
+            <a class="source-link tide-link" target="_blank" rel="noreferrer">潮位表</a>
+          </div>
+        </article>
+      </template>
+    </div>
+  </body>
+</html>
