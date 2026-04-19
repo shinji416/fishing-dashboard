@@ -1,8 +1,6 @@
 :root {
-  --bg: #eef4f1;
-  --bg-accent: radial-gradient(circle at top left, rgba(16, 185, 129, 0.18), transparent 32%),
-    radial-gradient(circle at top right, rgba(14, 116, 144, 0.16), transparent 28%),
-    linear-gradient(180deg, #f8fbfa 0%, #e8f0ed 100%);
+  --bg: #dcecf2;
+  --bg-accent: linear-gradient(180deg, #dff4ff 0%, #bfe3f2 24%, #4ca3bf 58%, #17607b 100%);
   --panel: rgba(255, 255, 255, 0.84);
   --panel-strong: rgba(255, 255, 255, 0.94);
   --line: rgba(15, 23, 42, 0.08);
@@ -20,17 +18,80 @@
 }
 
 body {
+  position: relative;
   margin: 0;
   min-height: 100vh;
   font-family: "Zen Kaku Gothic New", sans-serif;
   color: var(--text);
   background: var(--bg-accent);
+  overflow-x: hidden;
+}
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+body::before {
+  background:
+    radial-gradient(circle at 18% 14%, rgba(255, 248, 215, 0.92), rgba(255, 248, 215, 0) 16%),
+    radial-gradient(circle at 24% 20%, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0) 14%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0) 28%);
+  opacity: 0.92;
+}
+
+body::after {
+  background:
+    radial-gradient(circle at 50% 72%, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0) 28%),
+    repeating-linear-gradient(
+      176deg,
+      rgba(255, 255, 255, 0.18) 0 2px,
+      rgba(255, 255, 255, 0) 2px 18px
+    ),
+    linear-gradient(180deg, rgba(255, 255, 255, 0) 44%, rgba(12, 60, 85, 0.12) 100%);
+  opacity: 0.5;
 }
 
 .page-shell {
+  position: relative;
   max-width: 1480px;
   margin: 0 auto;
   padding: 32px 20px 60px;
+  z-index: 0;
+}
+
+.page-shell::before,
+.page-shell::after {
+  content: "";
+  position: fixed;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.page-shell::before {
+  left: -10vw;
+  right: -10vw;
+  top: 40vh;
+  height: 34vh;
+  background:
+    radial-gradient(ellipse at center, rgba(139, 233, 255, 0.24), rgba(139, 233, 255, 0) 58%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0));
+  filter: blur(12px);
+}
+
+.page-shell::after {
+  left: -5vw;
+  right: -5vw;
+  bottom: 8vh;
+  height: 22vh;
+  background:
+    radial-gradient(circle at 12% 40%, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0) 18%),
+    radial-gradient(circle at 74% 30%, rgba(255, 255, 255, 0.17), rgba(255, 255, 255, 0) 22%),
+    linear-gradient(180deg, rgba(17, 101, 127, 0.16), rgba(10, 54, 75, 0));
+  filter: blur(18px);
 }
 
 .hero {
@@ -40,8 +101,28 @@ body {
   padding: 28px;
   border: 1px solid var(--line);
   border-radius: 28px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(228, 239, 236, 0.94));
+  background:
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0) 26%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(221, 244, 248, 0.9));
   box-shadow: var(--shadow);
+  overflow: hidden;
+  position: relative;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: auto -6% -18% -6%;
+  height: 140px;
+  background:
+    radial-gradient(circle at 16% 32%, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0) 24%),
+    radial-gradient(circle at 84% 40%, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0) 20%),
+    repeating-radial-gradient(
+      circle at 50% 120%,
+      rgba(20, 105, 133, 0.16) 0 16px,
+      rgba(20, 105, 133, 0) 16px 32px
+    );
+  opacity: 0.9;
 }
 
 .eyebrow {
@@ -233,7 +314,9 @@ h1 {
   padding: 22px;
   border: 1px solid var(--line);
   border-radius: 26px;
-  background: var(--panel);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(239, 250, 252, 0.82)),
+    var(--panel);
   backdrop-filter: blur(12px);
   box-shadow: var(--shadow);
 }
