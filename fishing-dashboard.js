@@ -236,16 +236,19 @@ function getDaySlice(hourly, dateString) {
 
 function setError(card) {
   card.querySelector(".status-pill").textContent = "取得失敗";
+  card.querySelector('[data-field="wave-alert"]').classList.remove("is-active");
   card.querySelector('[data-field="summary"]').textContent =
     "データ取得に失敗しました。通信状況を確認して再読み込みしてください。";
 }
 
 function updateMetrics(card, combined, daySlice) {
+  const waveAlert = card.querySelector('[data-field="wave-alert"]');
   card.querySelector('[data-field="tide"]').textContent = `${formatNumber(combined.current.tide)} m`;
   card.querySelector('[data-field="wave"]').textContent = `${formatNumber(combined.current.wave)} m`;
   card.querySelector('[data-field="wind"]').textContent = `${formatNumber(combined.current.wind)} m/s`;
   card.querySelector('[data-field="temp"]').textContent = `${formatNumber(combined.current.temp)} ℃`;
   card.querySelector(".status-pill").textContent = weatherLabel(combined.current.code);
+  waveAlert.classList.toggle("is-active", Number(combined.current.wave) > 1.5);
 
   if (!daySlice.length) {
     card.querySelector('[data-field="summary"]').textContent = "この日の24時間データはまだありません。";
