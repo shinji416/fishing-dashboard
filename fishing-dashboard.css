@@ -330,13 +330,6 @@ h1 {
   font-weight: 600;
 }
 
-.official-actions {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-}
-
 .official-link {
   display: inline-flex;
   align-items: center;
@@ -351,37 +344,40 @@ h1 {
   white-space: nowrap;
 }
 
-.official-link.secondary {
-  background: #0f766e;
-}
-
-.official-frame-stack {
+.official-links-list {
   display: grid;
   gap: 14px;
 }
 
-.official-frame-block {
+.official-list-link {
   display: grid;
-  gap: 8px;
+  gap: 6px;
+  padding: 16px 18px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease;
 }
 
-.official-frame-title {
-  margin: 0;
-  color: #28465d;
-  font-weight: 700;
-  font-size: 0.92rem;
+.official-list-link:hover {
+  transform: translateY(-1px);
+  border-color: rgba(15, 118, 110, 0.38);
+  background: rgba(255, 255, 255, 0.94);
 }
 
-.official-frame-wrap,
-.official-frame {
-  width: 100%;
+.official-list-title {
+  color: #173042;
+  font-weight: 800;
+  font-size: 1rem;
 }
 
-.official-frame {
-  min-height: 520px;
-  border: 1px solid rgba(15, 23, 42, 0.12);
-  border-radius: 22px;
-  background: #fff;
+.official-list-copy {
+  color: #35576b;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  font-weight: 600;
 }
 
 .swatch {
@@ -697,14 +693,6 @@ h1 {
     flex-direction: column;
   }
 
-  .official-actions {
-    justify-content: flex-start;
-  }
-
-  .official-frame {
-    min-height: 460px;
-  }
-
   .card-head {
     align-items: flex-start;
   }
@@ -738,11 +726,6 @@ h1 {
 
   .official-card {
     padding: 16px;
-  }
-
-  .official-frame {
-    min-height: 420px;
-    border-radius: 18px;
   }
 
   .wind-direction-item,
