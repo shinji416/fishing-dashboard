@@ -120,6 +120,18 @@ function weatherLabel(code) {
   return map[code] || "変化あり";
 }
 
+function windDirectionLabel(degrees) {
+  const labels = ["北", "北東", "東", "南東", "南", "南西", "西", "北西"];
+  const index = Math.round((((degrees % 360) + 360) % 360) / 45) % 8;
+  return labels[index];
+}
+
+function windDirectionArrow(degrees) {
+  const arrows = ["↑", "↗", "→", "↘", "↓", "↙", "←", "↖"];
+  const index = Math.round((((degrees % 360) + 360) % 360) / 45) % 8;
+  return arrows[index];
+}
+
 function makeForecastUrl(spot) {
   const params = new URLSearchParams({
     latitude: spot.lat,
@@ -214,6 +226,7 @@ function combineData(weatherJson, marineJson) {
     tide: marineJson.hourly.sea_level_height_msl[index],
     wave: marineJson.hourly.wave_height[index],
     wind: weatherJson.hourly.wind_speed_10m[index],
+    windDirection: weatherJson.hourly.wind_direction_10m[index],
     temp: weatherJson.hourly.temperature_2m[index],
     code: weatherJson.hourly.weather_code[index],
   }));
@@ -224,6 +237,7 @@ function combineData(weatherJson, marineJson) {
       tide: marineJson.current.sea_level_height_msl,
       wave: marineJson.current.wave_height,
       wind: weatherJson.current.wind_speed_10m,
+      windDirection: weatherJson.current.wind_direction_10m,
       temp: weatherJson.current.temperature_2m,
       code: weatherJson.current.weather_code,
     },
@@ -243,15 +257,18 @@ function setError(card) {
 
 function updateMetrics(card, combined, daySlice) {
   const waveAlert = card.querySelector('[data-field="wave-alert"]');
+  const windDirectionStrip = card.querySelector('[data-field="wind-direction-strip"]');
   card.querySelector('[data-field="tide"]').textContent = `${formatNumber(combined.current.tide)} m`;
   card.querySelector('[data-field="wave"]').textContent = `${formatNumber(combined.current.wave)} m`;
   card.querySelector('[data-field="wind"]').textContent = `${formatNumber(combined.current.wind)} m/s`;
   card.querySelector('[data-field="temp"]').textContent = `${formatNumber(combined.current.temp)} ℃`;
-  card.querySelector(".status-pill").textContent = weatherLabel(combined.current.code);
+  card.querySelector(".status-pill").textContent =
+    `${weatherLabel(combined.current.code)} / ${windDirectionLabel(combined.current.windDirection)}`;
   waveAlert.classList.toggle("is-active", Number(combined.current.wave) > 1.5);
 
   if (!daySlice.length) {
     card.querySelector('[data-field="summary"]').textContent = "この日の24時間データはまだありません。";
+    windDirectionStrip.innerHTML = "";
     return;
   }
 
@@ -268,6 +285,18 @@ function updateMetrics(card, combined, daySlice) {
     `波高max ${formatNumber(Math.max(...waves), 1)}m / 風速max ${formatNumber(Math.max(...winds), 1)}m/s / ` +
     `気温 ${formatNumber(Math.min(...temps), 1)}-${formatNumber(Math.max(...temps), 1)}℃ / ` +
     `潮位差 ${formatNumber(Math.max(...tides) - Math.min(...tides), 2)}m / ${dominant}`;
+
+  windDirectionStrip.innerHTML = daySlice
+    .map(
+      (item) => `
+        <div class="wind-direction-item">
+          <span class="wind-direction-time">${item.label}</span>
+          <span class="wind-direction-arrow">${windDirectionArrow(item.windDirection)}</span>
+          <span class="wind-direction-label">${windDirectionLabel(item.windDirection)}</span>
+        </div>
+      `
+    )
+    .join("");
 }
 
 function buildChart(card, spotName, daySlice) {
