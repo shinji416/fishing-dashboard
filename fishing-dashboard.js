@@ -349,7 +349,7 @@ function buildChart(card, spotName, daySlice) {
           borderColor: chartColors.tide,
           backgroundColor: chartColors.tide,
           pointRadius: 0,
-          borderWidth: 1.8,
+          borderWidth: 2.8,
           yAxisID: "y",
           tension: 0.28,
         },
@@ -359,7 +359,7 @@ function buildChart(card, spotName, daySlice) {
           borderColor: chartColors.wave,
           backgroundColor: chartColors.wave,
           pointRadius: 0,
-          borderWidth: 1.8,
+          borderWidth: 2.8,
           yAxisID: "y",
           tension: 0.28,
         },
@@ -369,7 +369,7 @@ function buildChart(card, spotName, daySlice) {
           borderColor: chartColors.wind,
           backgroundColor: chartColors.wind,
           pointRadius: 0,
-          borderWidth: 1.8,
+          borderWidth: 2.6,
           yAxisID: "y1",
           tension: 0.22,
         },
@@ -379,7 +379,7 @@ function buildChart(card, spotName, daySlice) {
           borderColor: chartColors.temp,
           backgroundColor: chartColors.temp,
           pointRadius: 0,
-          borderWidth: 1.8,
+          borderWidth: 2.6,
           yAxisID: "y2",
           tension: 0.22,
         },
@@ -392,7 +392,7 @@ function buildChart(card, spotName, daySlice) {
       plugins: {
         legend: {
           position: "bottom",
-          labels: { usePointStyle: true, boxWidth: 8, padding: 10, font: { size: 11 } },
+          labels: { usePointStyle: true, boxWidth: 10, padding: 12, color: "#173042", font: { size: 12, weight: "700" } },
         },
         tooltip: {
           callbacks: {
@@ -404,23 +404,23 @@ function buildChart(card, spotName, daySlice) {
       },
       scales: {
         x: {
-          ticks: { maxTicksLimit: 6, color: "#5a7184", font: { size: 11 } },
-          grid: { color: "rgba(15, 23, 42, 0.04)" },
+          ticks: { maxTicksLimit: 6, color: "#2f4a61", font: { size: 12, weight: "700" } },
+          grid: { color: "rgba(15, 23, 42, 0.12)", lineWidth: 1 },
         },
         y: {
           position: "left",
-          ticks: { color: chartColors.wave, font: { size: 11 } },
-          grid: { color: "rgba(15, 23, 42, 0.05)" },
+          ticks: { color: "#1e40af", font: { size: 12, weight: "700" } },
+          grid: { color: "rgba(15, 23, 42, 0.14)", lineWidth: 1 },
         },
         y1: {
           position: "right",
-          ticks: { color: chartColors.wind, font: { size: 11 } },
+          ticks: { color: "#c2410c", font: { size: 12, weight: "700" } },
           grid: { drawOnChartArea: false },
         },
         y2: {
           position: "right",
           offset: true,
-          ticks: { color: chartColors.temp, font: { size: 11 } },
+          ticks: { color: "#b91c1c", font: { size: 12, weight: "700" } },
           grid: { drawOnChartArea: false },
         },
       },
