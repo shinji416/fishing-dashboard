@@ -72,6 +72,78 @@ const chartColors = {
   temp: "#dc2626",
 };
 
+const currentTimeLinePlugin = {
+  id: "currentTimeLine",
+  afterDatasetsDraw(chart, args, pluginOptions) {
+    if (!pluginOptions?.enabled) {
+      return;
+    }
+
+    const { ctx, chartArea, scales } = chart;
+    const xScale = scales.x;
+
+    if (!xScale || !chartArea) {
+      return;
+    }
+
+    const points = pluginOptions.points || [];
+    if (points.length < 1) {
+      return;
+    }
+
+    const now = new Date();
+    const minutesNow = now.getHours() * 60 + now.getMinutes();
+
+    let currentIndex = -1;
+    for (let i = 0; i < points.length; i += 1) {
+      const pointDate = new Date(points[i].time);
+      const pointMinutes = pointDate.getHours() * 60 + pointDate.getMinutes();
+      const nextPoint = points[i + 1] ? new Date(points[i + 1].time) : null;
+      const nextMinutes = nextPoint ? nextPoint.getHours() * 60 + nextPoint.getMinutes() : pointMinutes + 60;
+
+      if (minutesNow >= pointMinutes && minutesNow < nextMinutes) {
+        currentIndex = i;
+        break;
+      }
+    }
+
+    if (currentIndex === -1) {
+      return;
+    }
+
+    const startMinutes = new Date(points[currentIndex].time).getHours() * 60 + new Date(points[currentIndex].time).getMinutes();
+    const endMinutes =
+      currentIndex < points.length - 1
+        ? new Date(points[currentIndex + 1].time).getHours() * 60 + new Date(points[currentIndex + 1].time).getMinutes()
+        : startMinutes + 60;
+    const spanMinutes = Math.max(endMinutes - startMinutes, 1);
+    const progress = Math.min(Math.max((minutesNow - startMinutes) / spanMinutes, 0), 1);
+
+    const currentPixel = xScale.getPixelForValue(currentIndex);
+    const nextPixel =
+      currentIndex < points.length - 1 ? xScale.getPixelForValue(currentIndex + 1) : currentPixel + (currentIndex > 0 ? currentPixel - xScale.getPixelForValue(currentIndex - 1) : 24);
+    const x = currentPixel + (nextPixel - currentPixel) * progress;
+
+    ctx.save();
+    ctx.strokeStyle = pluginOptions.color || "#0f172a";
+    ctx.lineWidth = pluginOptions.lineWidth || 2;
+    ctx.setLineDash([6, 6]);
+    ctx.beginPath();
+    ctx.moveTo(x, chartArea.top);
+    ctx.lineTo(x, chartArea.bottom);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    ctx.fillStyle = pluginOptions.color || "#0f172a";
+    ctx.font = "700 12px 'Zen Kaku Gothic New', sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText("今", x, chartArea.top - 8);
+    ctx.restore();
+  },
+};
+
+Chart.register(currentTimeLinePlugin);
+
 const charts = new Map();
 const spotState = new Map();
 const grid = document.getElementById("spotGrid");
@@ -208,6 +280,15 @@ function formatDateLong(dateString) {
     day: "numeric",
     weekday: "short",
   }).format(new Date(`${dateString}T00:00:00+09:00`));
+}
+
+function getTodayDateKey() {
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Tokyo",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(new Date());
 }
 
 function updateMoonPanel() {
@@ -393,6 +474,12 @@ function buildChart(card, spotName, daySlice) {
         legend: {
           position: "bottom",
           labels: { usePointStyle: true, boxWidth: 10, padding: 12, color: "#173042", font: { size: 12, weight: "700" } },
+        },
+        currentTimeLine: {
+          enabled: selectedDate === getTodayDateKey(),
+          points: daySlice,
+          color: "#0f172a",
+          lineWidth: 2,
         },
         tooltip: {
           callbacks: {
