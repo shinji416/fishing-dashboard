@@ -285,6 +285,105 @@ h1 {
   gap: 8px;
 }
 
+.official-panels {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+  margin-top: 22px;
+}
+
+.official-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  border-radius: 28px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(232, 246, 251, 0.9));
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  box-shadow: var(--shadow);
+}
+
+.official-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.official-kicker {
+  margin: 0 0 6px;
+  font: 700 0.74rem/1 "Roboto Mono", monospace;
+  letter-spacing: 0.12em;
+  color: #0f766e;
+}
+
+.official-head h2 {
+  margin: 0;
+  font-size: 1.45rem;
+}
+
+.official-copy {
+  margin: 8px 0 0;
+  color: var(--subtle);
+  font-size: 0.92rem;
+  line-height: 1.7;
+  font-weight: 600;
+}
+
+.official-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.official-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: #173042;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.official-link.secondary {
+  background: #0f766e;
+}
+
+.official-frame-stack {
+  display: grid;
+  gap: 14px;
+}
+
+.official-frame-block {
+  display: grid;
+  gap: 8px;
+}
+
+.official-frame-title {
+  margin: 0;
+  color: #28465d;
+  font-weight: 700;
+  font-size: 0.92rem;
+}
+
+.official-frame-wrap,
+.official-frame {
+  width: 100%;
+}
+
+.official-frame {
+  min-height: 520px;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: 22px;
+  background: #fff;
+}
+
 .swatch {
   width: 12px;
   height: 12px;
@@ -594,6 +693,18 @@ h1 {
     padding: 8px;
   }
 
+  .official-head {
+    flex-direction: column;
+  }
+
+  .official-actions {
+    justify-content: flex-start;
+  }
+
+  .official-frame {
+    min-height: 460px;
+  }
+
   .card-head {
     align-items: flex-start;
   }
@@ -619,6 +730,19 @@ h1 {
   .wind-direction-scroll {
     grid-auto-columns: 74px;
     min-height: 126px;
+  }
+
+  .official-panels {
+    grid-template-columns: 1fr;
+  }
+
+  .official-card {
+    padding: 16px;
+  }
+
+  .official-frame {
+    min-height: 420px;
+    border-radius: 18px;
   }
 
   .wind-direction-item,

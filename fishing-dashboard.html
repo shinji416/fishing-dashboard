@@ -65,6 +65,61 @@
         <span><i class="swatch temp"></i>気温</span>
       </section>
 
+      <section class="official-panels">
+        <article class="official-card">
+          <div class="official-head">
+            <div>
+              <p class="official-kicker">OFFICIAL MAP</p>
+              <h2>海面水温実況図</h2>
+              <p class="official-copy">気象庁の日本近海向け海面水温ページです。スマホでは下の地図をタップすると公式ページへ移動できます。</p>
+            </div>
+            <a class="official-link" href="https://www.data.jma.go.jp/kaikyou/kaikyou/tile/jp/index_sstanl.html" target="_blank" rel="noreferrer">気象庁で開く</a>
+          </div>
+          <div class="official-frame-wrap">
+            <iframe
+              class="official-frame"
+              src="https://www.data.jma.go.jp/kaikyou/kaikyou/tile/jp/index_sstanl.html"
+              title="気象庁 海面水温実況図"
+              loading="lazy"
+            ></iframe>
+          </div>
+        </article>
+
+        <article class="official-card">
+          <div class="official-head">
+            <div>
+              <p class="official-kicker">OFFICIAL WEATHER</p>
+              <h2>天気図と台風情報</h2>
+              <p class="official-copy">気象庁の最新天気図と、台風や大雨に関する防災情報へアクセスできます。スマホで縦に確認しやすいサイズにしています。</p>
+            </div>
+            <div class="official-actions">
+              <a class="official-link" href="https://www.jma.go.jp/bosai/weather_map/" target="_blank" rel="noreferrer">天気図</a>
+              <a class="official-link secondary" href="https://www.jma.go.jp/jma/bosaiinfo/rain_portal.html" target="_blank" rel="noreferrer">台風情報</a>
+            </div>
+          </div>
+          <div class="official-frame-stack">
+            <div class="official-frame-block">
+              <p class="official-frame-title">気象庁 天気図</p>
+              <iframe
+                class="official-frame"
+                src="https://www.jma.go.jp/bosai/weather_map/"
+                title="気象庁 天気図"
+                loading="lazy"
+              ></iframe>
+            </div>
+            <div class="official-frame-block">
+              <p class="official-frame-title">台風・大雨に関する防災情報</p>
+              <iframe
+                class="official-frame"
+                src="https://www.jma.go.jp/jma/bosaiinfo/rain_portal.html"
+                title="気象庁 台風や大雨に関する最新の防災気象情報"
+                loading="lazy"
+              ></iframe>
+            </div>
+          </div>
+        </article>
+      </section>
+
       <main class="spot-grid" id="spotGrid"></main>
 
       <template id="spotTemplate">
