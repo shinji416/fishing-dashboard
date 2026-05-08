@@ -460,7 +460,7 @@ h1 {
 
 .chart-wrap {
   position: relative;
-  min-height: 220px;
+  min-height: 260px;
   padding: 10px 12px;
   border-radius: 22px;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.74), rgba(240, 246, 243, 0.92));
@@ -486,17 +486,18 @@ h1 {
   gap: 10px;
   overflow-x: auto;
   padding-bottom: 4px;
+  min-height: 118px;
 }
 
 .wind-direction-item {
   display: grid;
   justify-items: center;
-  gap: 6px;
+  gap: 4px;
   padding: 12px 10px;
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.76);
   border: 1px solid rgba(15, 23, 42, 0.06);
-  min-height: 110px;
+  min-height: 118px;
 }
 
 .wind-direction-time {
@@ -514,6 +515,24 @@ h1 {
   font-size: 0.82rem;
   font-weight: 700;
   color: #173042;
+}
+
+.wind-direction-degree {
+  font-size: 0.74rem;
+  color: var(--subtle);
+}
+
+.wind-direction-empty {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 118px;
+  padding: 12px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px dashed rgba(15, 23, 42, 0.12);
+  color: var(--subtle);
+  font-size: 0.86rem;
 }
 
 .links {
@@ -560,7 +579,7 @@ h1 {
   }
 
   .chart-wrap {
-    min-height: 280px;
+    min-height: 340px;
     padding: 8px;
   }
 
@@ -587,6 +606,16 @@ h1 {
   }
 
   .wind-direction-scroll {
-    grid-auto-columns: 68px;
+    grid-auto-columns: 74px;
+    min-height: 126px;
+  }
+
+  .wind-direction-item,
+  .wind-direction-empty {
+    min-height: 126px;
+  }
+
+  .chart-wrap canvas {
+    min-height: 320px;
   }
 }

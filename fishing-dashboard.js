@@ -121,12 +121,18 @@ function weatherLabel(code) {
 }
 
 function windDirectionLabel(degrees) {
+  if (!Number.isFinite(degrees)) {
+    return "--";
+  }
   const labels = ["北", "北東", "東", "南東", "南", "南西", "西", "北西"];
   const index = Math.round((((degrees % 360) + 360) % 360) / 45) % 8;
   return labels[index];
 }
 
 function windDirectionArrow(degrees) {
+  if (!Number.isFinite(degrees)) {
+    return "•";
+  }
   const arrows = ["↑", "↗", "→", "↘", "↓", "↙", "←", "↖"];
   const index = Math.round((((degrees % 360) + 360) % 360) / 45) % 8;
   return arrows[index];
@@ -248,6 +254,42 @@ function getDaySlice(hourly, dateString) {
   return hourly.filter((entry) => entry.dateKey === dateString).slice(0, 24);
 }
 
+function renderWindDirectionStrip(container, daySlice) {
+  container.innerHTML = "";
+
+  if (!daySlice.length) {
+    const empty = document.createElement("div");
+    empty.className = "wind-direction-empty";
+    empty.textContent = "風向きデータなし";
+    container.appendChild(empty);
+    return;
+  }
+
+  daySlice.forEach((item) => {
+    const cell = document.createElement("div");
+    cell.className = "wind-direction-item";
+
+    const time = document.createElement("span");
+    time.className = "wind-direction-time";
+    time.textContent = item.label;
+
+    const arrow = document.createElement("span");
+    arrow.className = "wind-direction-arrow";
+    arrow.textContent = windDirectionArrow(item.windDirection);
+
+    const label = document.createElement("span");
+    label.className = "wind-direction-label";
+    label.textContent = windDirectionLabel(item.windDirection);
+
+    const degree = document.createElement("span");
+    degree.className = "wind-direction-degree";
+    degree.textContent = Number.isFinite(item.windDirection) ? `${Math.round(item.windDirection)}°` : "--";
+
+    cell.append(time, arrow, label, degree);
+    container.appendChild(cell);
+  });
+}
+
 function setError(card) {
   card.querySelector(".status-pill").textContent = "取得失敗";
   card.querySelector('[data-field="wave-alert"]').classList.remove("is-active");
@@ -268,7 +310,7 @@ function updateMetrics(card, combined, daySlice) {
 
   if (!daySlice.length) {
     card.querySelector('[data-field="summary"]').textContent = "この日の24時間データはまだありません。";
-    windDirectionStrip.innerHTML = "";
+    renderWindDirectionStrip(windDirectionStrip, []);
     return;
   }
 
@@ -286,17 +328,7 @@ function updateMetrics(card, combined, daySlice) {
     `気温 ${formatNumber(Math.min(...temps), 1)}-${formatNumber(Math.max(...temps), 1)}℃ / ` +
     `潮位差 ${formatNumber(Math.max(...tides) - Math.min(...tides), 2)}m / ${dominant}`;
 
-  windDirectionStrip.innerHTML = daySlice
-    .map(
-      (item) => `
-        <div class="wind-direction-item">
-          <span class="wind-direction-time">${item.label}</span>
-          <span class="wind-direction-arrow">${windDirectionArrow(item.windDirection)}</span>
-          <span class="wind-direction-label">${windDirectionLabel(item.windDirection)}</span>
-        </div>
-      `
-    )
-    .join("");
+  renderWindDirectionStrip(windDirectionStrip, daySlice);
 }
 
 function buildChart(card, spotName, daySlice) {
@@ -360,7 +392,7 @@ function buildChart(card, spotName, daySlice) {
       plugins: {
         legend: {
           position: "bottom",
-          labels: { usePointStyle: true, boxWidth: 8, padding: 14 },
+          labels: { usePointStyle: true, boxWidth: 8, padding: 10, font: { size: 11 } },
         },
         tooltip: {
           callbacks: {
@@ -372,23 +404,23 @@ function buildChart(card, spotName, daySlice) {
       },
       scales: {
         x: {
-          ticks: { maxTicksLimit: 8, color: "#5a7184" },
+          ticks: { maxTicksLimit: 6, color: "#5a7184", font: { size: 11 } },
           grid: { color: "rgba(15, 23, 42, 0.04)" },
         },
         y: {
           position: "left",
-          ticks: { color: chartColors.wave },
+          ticks: { color: chartColors.wave, font: { size: 11 } },
           grid: { color: "rgba(15, 23, 42, 0.05)" },
         },
         y1: {
           position: "right",
-          ticks: { color: chartColors.wind },
+          ticks: { color: chartColors.wind, font: { size: 11 } },
           grid: { drawOnChartArea: false },
         },
         y2: {
           position: "right",
           offset: true,
-          ticks: { color: chartColors.temp },
+          ticks: { color: chartColors.temp, font: { size: 11 } },
           grid: { drawOnChartArea: false },
         },
       },
