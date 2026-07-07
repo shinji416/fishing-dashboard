@@ -1,41 +1,29 @@
-# 中部釣りコンディション
+# Fishing Tide BI Final
 
-三重県、愛知県、静岡県の主要釣り場をまとめて比較できる静的サイトです。
+スマホ1ページ固定の釣り用タイドグラフBIです。
 
-公開URL:
-https://shinji416.github.io/fishing-dashboard/
+## GitHub Pagesへアップするファイル
 
-## できること
+- index.html
+- style.css
+- script.js
+- manifest.webmanifest
+- icon.png
+- icon-192.png
+- icon-512.png
+- apple-touch-icon.png
 
-- 鈴鹿、四日市、長良川河口、田原市赤羽、伊古部、浜名湖、御前崎、天竜川河口を一覧表示
-- 7日先までの予報取得
-- 日付指定で24時間グラフを表示
-- 潮位近似、波高、風速、気温を同時表示
-- 月齢と大潮、中潮、小潮、長潮、若潮を表示
-- スマホブラウザでも見やすいレイアウト
+## 特徴
 
-## 技術構成
+- 1ページ固定、スクロールなし前提
+- 下部に最大9ポイント表示
+- 時間の下に毎時の天気・風向・風速・波高を表示
+- 今日、明日、3日後、7日後、14日後を切替
+- 新しいST釣り潮アイコンをヘッダーとホーム画面アイコンに使用
+- 天気、風、波、水温はOpen-Meteo系APIから取得
+- 潮汐は現時点では簡易推算。本番利用では潮汐API接続推奨
 
-- 静的HTML / CSS / JavaScript
-- 天気、風: Open-Meteo Forecast API
-- 波、海面高: Open-Meteo Marine API
-- 潮位表リンク: 気象庁
+## GitHub Pagesでの使い方
 
-## 公開手順
-
-1. GitHub で新しい公開リポジトリを作成します。
-2. このフォルダの中身をそのリポジトリにアップロードします。
-3. `Settings` → `Pages` を開きます。
-4. `Build and deployment` の `Source` を `Deploy from a branch` にします。
-5. `Branch` は `main`、フォルダは `/ (root)` を選びます。
-6. 数分待つと `https://<ユーザー名>.github.io/<リポジトリ名>/` で公開されます。
-
-## 必要ファイル
-
-- `index.html`
-- `fishing-dashboard.css`
-- `fishing-dashboard.js`
-- `favicon.svg`
-- `og-image.svg`
-
-`fishing-dashboard.html` はローカル確認用として残していますが、GitHub Pages では `index.html` が入口になります。
+リポジトリ直下に上記ファイルを置き、Pagesを有効化してください。
+公開URLをiPhone Safariで開き、共有メニューから「ホーム画面に追加」します。
